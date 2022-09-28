@@ -29,7 +29,10 @@ public class CommonActions {
             default:
                 throw new RuntimeException("You do not choose direct driver");
         }
-    }public static WebDriver getDriver() {
+    }
 
-        return driver;}
+    public static WebDriver getDriver() {
+
+        return driver;
+    }
 }
