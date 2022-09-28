@@ -32,7 +32,7 @@ public class HomePage extends BasePage {
         chooseTopic.sendKeys(topicName);
     }
 
-    public void writeByName(String favoriteName) {
+    public void searchByName(String favoriteName) {
         searchName.click();
         searchName.sendKeys(favoriteName);
     }
