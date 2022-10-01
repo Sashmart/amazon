@@ -1,5 +1,6 @@
 package amazon;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -8,6 +9,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 public class SearchResultPage extends BasePage {
 
@@ -24,6 +26,9 @@ public class SearchResultPage extends BasePage {
     protected WebElement searchResultName;
     @FindBy(xpath = "//div[@class='nav-search-field ']/child::input")
     protected WebElement theValueOfTheNameToSearchFor;
+
+    @FindBy(xpath = "//div[@class='_octopus-search-result-card_style_apbSearchResultItem__2-mx4']")
+    List<WebElement> itemList;
 
     public int totalNumberOfElementsInPage() {
         String count = numberOfElementsOnPage.getText().substring(2, 4);
@@ -46,8 +51,22 @@ public class SearchResultPage extends BasePage {
         return theValueOfTheNameToSearchFor.getAttribute("value");
     }
 
+    public void chooseRandomItem() {
+        Random random = new Random();
+        int randomNumber = random.nextInt(1, itemList.size());
+        WebElement chooseRandomItem = driver.findElement
+                (By.xpath("//div[@class='_octopus-search-result-card_style_apbSearchResultItem__2-mx4']" + "[" + randomNumber + "]"));
+        chooseRandomItem.click();
+
+    }
+
+    public void waitForPageLoadVisibilityOfAllItem() {
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfAllElements(itemList));
+    }
+
     public void waitForPageLoad() {
         new WebDriverWait(driver, Duration.ofSeconds(20)).
                 until(ExpectedConditions.elementToBeClickable(countOfItem.get(countOfItemInPage() - 1)));
     }
+
 }
