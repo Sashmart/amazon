@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="C:/Users/Sashik_Martirosyan/IdeaProjects/New folder/src"><classes/></test></suite>
+
+
+ <suite> name="Suite1" verbose="1" >
+<test name="Nopackage" >
+    <classes>
+        <class name="AmazonTest" />
+    </classes>
+</test>
+
+<test name="Regression1">
+    <classes>
+        <class name="AmazonTest"/>
+
+    </classes>
+</test>
+</suite>
