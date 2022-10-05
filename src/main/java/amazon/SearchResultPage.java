@@ -29,6 +29,8 @@ public class SearchResultPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='_octopus-search-result-card_style_apbSearchResultItem__2-mx4']")
     List<WebElement> itemList;
+    @FindBy(xpath = "//*[text()='See all results']")
+    protected WebElement seeAllSearchResultButton;
 
     public int totalNumberOfElementsInPage() {
         String count = numberOfElementsOnPage.getText().substring(2, 4);
@@ -67,6 +69,14 @@ public class SearchResultPage extends BasePage {
     public void waitForPageLoad() {
         new WebDriverWait(driver, Duration.ofSeconds(20)).
                 until(ExpectedConditions.elementToBeClickable(countOfItem.get(countOfItemInPage() - 1)));
+    }
+
+    public void seeAllResult() {
+        seeAllSearchResultButton.click();
+    }
+
+    public void waitForPageLoadALlSearchButton() {
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(searchResultName));
     }
 
 }

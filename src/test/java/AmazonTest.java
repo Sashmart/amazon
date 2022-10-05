@@ -1,3 +1,4 @@
+import amazon.AllSearchResultPage;
 import amazon.HomePage;
 import amazon.ProductPage;
 import amazon.SearchResultPage;
@@ -46,6 +47,30 @@ public class AmazonTest {
         ProductPage productPage = new ProductPage(CommonActions.getDriver());
         productPage.waitForPageLoad();
         Assert.assertEquals(100, productPage.sumMarks());
+
+    }
+
+    @Test
+    public void checkPaginationAndHoveringOnBestSeller() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+        HomePage homePage = new HomePage(CommonActions.getDriver());
+        homePage.goTo();
+        homePage.waitForPageLoad();
+        homePage.chooseTopicButton();
+        homePage.waitForPreviousCategoryItemVisibility();
+        homePage.chooseCategory1("Smart Home");
+        homePage.waitForPreviousTopicItemVisibility();
+        homePage.chooseType("Smart Home Lighting");
+        SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
+        searchResultPage.waitForPageLoadVisibilityOfAllItem();
+        searchResultPage.seeAllResult();
+        AllSearchResultPage allSearchResultPage = new AllSearchResultPage(CommonActions.getDriver());
+        allSearchResultPage.waitForPageLoad();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(allSearchResultPage.textVisibilityWhenClickOnBestSellerButton());
+        softAssert.assertEquals(allSearchResultPage.numberOfItemsAcrossPages(), allSearchResultPage.itemsCountInPage());
+        softAssert.assertAll();
+
 
     }
 
