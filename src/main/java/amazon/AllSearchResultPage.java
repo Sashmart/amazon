@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.Random;
 
 public class AllSearchResultPage extends BasePage {
 
@@ -29,14 +30,15 @@ public class AllSearchResultPage extends BasePage {
 
     public boolean textVisibilityWhenClickOnBestSellerButton() {
         boolean textVisibility = false;
-        for (int i = 0; i < listItemWhereWriteBestSeller.size(); i++) {
-            listItemWhereWriteBestSeller.get(i).click();
-            boolean textContains = textListWhenClickOnBestSellerButton.get(i).getText().contains("in");
-            textVisibility = textContains;
-            if (textVisibility == false) {
-                return textVisibility;
-            }
+        Random random=new Random();
+        int randomNumber=random.nextInt(1, listItemWhereWriteBestSeller.size());
+        listItemWhereWriteBestSeller.get(randomNumber).click();
+        boolean textContains = textListWhenClickOnBestSellerButton.get(randomNumber).getText().contains("in");
+        if (textVisibility == false) {
+            return textVisibility;
         }
+
+
         return textVisibility;
     }
 
