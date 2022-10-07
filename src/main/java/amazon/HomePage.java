@@ -38,7 +38,7 @@ public class HomePage extends BasePage {
         driver.get(SITE_URL);
     }
 
-    public void chooseCategory(String topicName) {
+    public void chooseTopic(String topicName) {
         chooseTopic.click();
         chooseTopic.sendKeys(topicName);
     }
@@ -62,7 +62,7 @@ public class HomePage extends BasePage {
 
     }
 
-    public void chooseCategory1(String category) {
+    public void chooseCategory(String category) {
         WebElement chooseType = driver.findElement(By.xpath("//div[text()='" + category + "']"));
         chooseType.click();
 
@@ -73,12 +73,12 @@ public class HomePage extends BasePage {
         chooseCategory.click();
     }
 
-    public void waitForPreviousCategoryItemVisibility() {
+    public void waitForLastCategoryItemVisibility() {
         new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.visibilityOf(signInButton));
 
     }
 
-    public void waitForPreviousTopicItemVisibility() {
+    public void waitWhileLastTopicItemVisibility() {
         new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(itemTopic));
     }
 

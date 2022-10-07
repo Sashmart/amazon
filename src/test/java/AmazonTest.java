@@ -17,7 +17,7 @@ public class AmazonTest {
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
         homePage.waitForPageLoad();
-        homePage.chooseCategory("Books");
+        homePage.chooseTopic("Books");
         homePage.searchByName("Grammar");
         homePage.searchButtonClick();
         String myCountryOfResidence = "Armenia";
@@ -37,9 +37,9 @@ public class AmazonTest {
         homePage.goTo();
         homePage.waitForPageLoad();
         homePage.chooseTopicButton();
-        homePage.waitForPreviousCategoryItemVisibility();
-        homePage.chooseCategory1("Smart Home");
-        homePage.waitForPreviousTopicItemVisibility();
+        homePage.waitForLastCategoryItemVisibility();
+        homePage.chooseCategory("Smart Home");
+        homePage.waitWhileLastTopicItemVisibility();
         homePage.chooseType("Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoadVisibilityOfAllItem();
@@ -57,9 +57,9 @@ public class AmazonTest {
         homePage.goTo();
         homePage.waitForPageLoad();
         homePage.chooseTopicButton();
-        homePage.waitForPreviousCategoryItemVisibility();
-        homePage.chooseCategory1("Smart Home");
-        homePage.waitForPreviousTopicItemVisibility();
+        homePage.waitForLastCategoryItemVisibility();
+        homePage.chooseCategory("Smart Home");
+        homePage.waitWhileLastTopicItemVisibility();
         homePage.chooseType("Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoadVisibilityOfAllItem();

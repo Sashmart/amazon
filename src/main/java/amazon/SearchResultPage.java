@@ -27,7 +27,7 @@ public class SearchResultPage extends BasePage {
     @FindBy(xpath = "//div[@class='nav-search-field ']/child::input")
     protected WebElement theValueOfTheNameToSearchFor;
 
-    @FindBy(xpath = "//div[@class='_octopus-search-result-card_style_apbSearchResultItem__2-mx4']")
+    @FindBy(xpath = "//div[contains(@class,'search-result-card')]")
     List<WebElement> itemList;
     @FindBy(xpath = "//*[text()='See all results']")
     protected WebElement seeAllSearchResultButton;
@@ -57,7 +57,7 @@ public class SearchResultPage extends BasePage {
         Random random = new Random();
         int randomNumber = random.nextInt(1, itemList.size());
         WebElement chooseRandomItem = driver.findElement
-                (By.xpath("//div[@class='_octopus-search-result-card_style_apbSearchResultItem__2-mx4']" + "[" + randomNumber + "]"));
+                (By.xpath("//div[contains(@class,'search-result-card')]" + "[" + randomNumber + "]"));
         chooseRandomItem.click();
 
     }

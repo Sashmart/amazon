@@ -34,10 +34,10 @@ public class AllSearchResultPage extends BasePage {
         int randomNumber=random.nextInt(1, listItemWhereWriteBestSeller.size());
         listItemWhereWriteBestSeller.get(randomNumber).click();
         boolean textContains = textListWhenClickOnBestSellerButton.get(randomNumber).getText().contains("in");
+        textVisibility=textContains;
         if (textVisibility == false) {
-            return textVisibility;
+            return false;
         }
-
 
         return textVisibility;
     }
