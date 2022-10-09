@@ -24,11 +24,10 @@ public class HomePage extends BasePage {
     @FindBy(id = "nav-cart")
     private WebElement shopsBasket;
     @FindBy(xpath = "//a[@aria-label='Open Menu']")
-    private WebElement chooseTopicAll;
-    @FindBy(xpath = "//a[@aria-label='Open Menu']")
-    private WebElement chooseType;
-    @FindBy(xpath = "//div[@class='nav-logo-base nav-sprite']")
-    protected WebElement logo;
+    private WebElement openAllCategoryButton;
+
+    @FindBy(xpath = "//span[@class='hm-icon-label']")
+    protected WebElement allButtonClick;
     @FindBy(xpath = "//a[text()='Sign in']")
     protected WebElement signInButton;
     @FindBy(xpath = "//a[text()='Other Solutions']")
@@ -57,8 +56,8 @@ public class HomePage extends BasePage {
         return country;
     }
 
-    public void chooseTopicButton() {
-        chooseTopicAll.click();
+    public void selectATopicFromTheEntireSection() {
+        openAllCategoryButton.click();
 
     }
 
@@ -73,16 +72,10 @@ public class HomePage extends BasePage {
         chooseCategory.click();
     }
 
-    public void waitForLastCategoryItemVisibility() {
-        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.visibilityOf(signInButton));
-
-    }
-
-    public void waitWhileLastTopicItemVisibility() {
-        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(itemTopic));
-    }
 
     public void waitForPageLoad() {
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(shopsBasket));
+        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(allButtonClick));
+
+
     }
 }

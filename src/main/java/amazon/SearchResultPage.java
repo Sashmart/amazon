@@ -19,7 +19,8 @@ public class SearchResultPage extends BasePage {
 
     @FindBy(xpath = "//div[@class='a-section a-spacing-small a-spacing-top-small'][span]")
     private WebElement numberOfElementsOnPage;
-
+    @FindBy(xpath = "//span[@class='navFooterBackToTopText']")
+    protected WebElement buttonOfBackToTopText;
     @FindBy(xpath = "//div[@data-component-type='s-search-result']")
     protected List<WebElement> countOfItem;
     @FindBy(xpath = "//span[@class='a-color-state a-text-bold']")
@@ -62,21 +63,14 @@ public class SearchResultPage extends BasePage {
 
     }
 
-    public void waitForPageLoadVisibilityOfAllItem() {
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOfAllElements(itemList));
-    }
-
     public void waitForPageLoad() {
-        new WebDriverWait(driver, Duration.ofSeconds(20)).
-                until(ExpectedConditions.elementToBeClickable(countOfItem.get(countOfItemInPage() - 1)));
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(buttonOfBackToTopText));
     }
 
-    public void seeAllResult() {
+    public void seeAllProductsInPaga() {
         seeAllSearchResultButton.click();
     }
 
-    public void waitForPageLoadALlSearchButton() {
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(searchResultName));
-    }
+
 
 }

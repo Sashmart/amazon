@@ -1,7 +1,4 @@
-import amazon.AllSearchResultPage;
-import amazon.HomePage;
-import amazon.ProductPage;
-import amazon.SearchResultPage;
+import amazon.*;
 import createDriver.CommonActions;
 import createDriver.Config;
 import org.testng.Assert;
@@ -36,13 +33,13 @@ public class AmazonTest {
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
         homePage.waitForPageLoad();
-        homePage.chooseTopicButton();
-        homePage.waitForLastCategoryItemVisibility();
+        homePage.selectATopicFromTheEntireSection();
+        homePage.waitForPageLoad();
         homePage.chooseCategory("Smart Home");
-        homePage.waitWhileLastTopicItemVisibility();
+        homePage.waitForPageLoad();
         homePage.chooseType("Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
-        searchResultPage.waitForPageLoadVisibilityOfAllItem();
+        searchResultPage.waitForPageLoad();
         searchResultPage.chooseRandomItem();
         ProductPage productPage = new ProductPage(CommonActions.getDriver());
         productPage.waitForPageLoad();
@@ -56,14 +53,14 @@ public class AmazonTest {
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
         homePage.waitForPageLoad();
-        homePage.chooseTopicButton();
-        homePage.waitForLastCategoryItemVisibility();
+        homePage.selectATopicFromTheEntireSection();
+        homePage.waitForPageLoad();
         homePage.chooseCategory("Smart Home");
-        homePage.waitWhileLastTopicItemVisibility();
+        homePage.waitForPageLoad();
         homePage.chooseType("Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
-        searchResultPage.waitForPageLoadVisibilityOfAllItem();
-        searchResultPage.seeAllResult();
+        searchResultPage.waitForPageLoad();
+        searchResultPage.seeAllProductsInPaga();
         AllSearchResultPage allSearchResultPage = new AllSearchResultPage(CommonActions.getDriver());
         allSearchResultPage.waitForPageLoad();
         SoftAssert softAssert = new SoftAssert();
@@ -74,9 +71,9 @@ public class AmazonTest {
 
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void close() {
-        if (Config.HOLD_BROWSER_OPEN) {
+    @AfterMethod
+    public void tearDown() {
+        if (CommonActions.getDriver()!=null) {
             CommonActions.getDriver().quit();
         }
     }
