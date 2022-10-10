@@ -65,7 +65,7 @@ public class AmazonTest {
         allSearchResultPage.waitForPageLoad();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(allSearchResultPage.textVisibilityWhenHoverOnBestSellerButton());
-        softAssert.assertEquals(allSearchResultPage.numberOfItemsAcrossPages(), allSearchResultPage.itemsCountInPage());
+        softAssert.assertTrue(allSearchResultPage.pageWithPagination());
         softAssert.assertAll();
 
 

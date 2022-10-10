@@ -1,5 +1,6 @@
 package amazon;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -22,35 +23,25 @@ public class AllSearchResultPage extends BasePage {
     @FindBy(xpath = "//span[@class='navFooterBackToTopText']")
     protected WebElement buttonOfBackToTopText;
     @FindBy(xpath = "//span[contains(@id,'best-seller-supplementary')]")
-    protected List<WebElement> textListWhenClickOnBestSellerButton;
-    @FindBy(xpath = "//div[contains(@class,'puis-padding-right-small')]")
-    protected List<WebElement> allItemListInPage;
-    @FindBy(xpath = "//div[contains(@class,' a-spacing-top-small')]/span")
-    protected WebElement resultCount;
-
+    protected List<WebElement> textListWhenHoverOnBestSellerButton;
+    @FindBy(xpath = "//a[contains(@class,' s-pagination-button')]")
+    protected WebElement paginationButton;
 
     public boolean textVisibilityWhenHoverOnBestSellerButton() {
-        if (listItemWhereWriteBestSeller.size() >= 1) {
-            Random random = new Random();
-            int randomNumber = random.nextInt(1, listItemWhereWriteBestSeller.size());
+
+        Random random = new Random();
+        int randomNumber = random.nextInt(listItemWhereWriteBestSeller.size());
+        if (listItemWhereWriteBestSeller.get(randomNumber).isDisplayed()) {
             Actions act = new Actions(driver);
             act.moveToElement(listItemWhereWriteBestSeller.get(randomNumber)).build().perform();
-            boolean textVisibility = textListWhenClickOnBestSellerButton.get(randomNumber).getText().isEmpty();
-            if (textVisibility == false) {
-                return true;
-            }
 
         }
-        return false;
+        return textListWhenHoverOnBestSellerButton.get(randomNumber).isDisplayed();
+
     }
 
-    public int itemsCountInPage() {
-        return allItemListInPage.size();
-    }
-
-    public int numberOfItemsAcrossPages() {
-        String generalItemCount = resultCount.getText().substring(8, 11);
-        return Integer.parseInt(generalItemCount);
+    public boolean pageWithPagination() {
+        return paginationButton.isEnabled();
     }
 
     public void waitForPageLoad() {
