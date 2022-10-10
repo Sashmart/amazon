@@ -2,6 +2,7 @@ package amazon;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.devtools.Message;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -9,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class AllSearchResultPage extends BasePage {
@@ -33,10 +35,16 @@ public class AllSearchResultPage extends BasePage {
         Random random=new Random();
         int randomNumber=random.nextInt(1, listItemWhereWriteBestSeller.size());
         Actions act=new Actions(driver);
-        act.moveToElement(listItemWhereWriteBestSeller.get(randomNumber)).build().perform();
-        boolean textVisibility = textListWhenClickOnBestSellerButton.get(randomNumber).getText().contains("in");
+        boolean textVisibility=false;
+       try {
+           act.moveToElement(listItemWhereWriteBestSeller.get(randomNumber)).build().perform();
+           textVisibility = textListWhenClickOnBestSellerButton.get(randomNumber).getText().contains("in");
+       }catch (NoSuchElementException e){
 
-        return textVisibility;
+           driver.close();
+       }
+
+       return textVisibility;
     }
 
     public int itemsCountInPage() {
