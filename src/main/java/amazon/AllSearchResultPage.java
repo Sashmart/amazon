@@ -30,16 +30,11 @@ public class AllSearchResultPage extends BasePage {
 
 
     public boolean textVisibilityWhenClickOnBestSellerButton() {
-        boolean textVisibility = false;
         Random random=new Random();
         int randomNumber=random.nextInt(1, listItemWhereWriteBestSeller.size());
         Actions act=new Actions(driver);
         act.moveToElement(listItemWhereWriteBestSeller.get(randomNumber)).build().perform();
-        boolean textContains = textListWhenClickOnBestSellerButton.get(randomNumber).getText().contains("in");
-        textVisibility=textContains;
-        if (textVisibility == false) {
-            return false;
-        }
+        boolean textVisibility = textListWhenClickOnBestSellerButton.get(randomNumber).getText().contains("in");
 
         return textVisibility;
     }
