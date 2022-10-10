@@ -64,7 +64,7 @@ public class AmazonTest {
         AllSearchResultPage allSearchResultPage = new AllSearchResultPage(CommonActions.getDriver());
         allSearchResultPage.waitForPageLoad();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(allSearchResultPage.textVisibilityWhenClickOnBestSellerButton());
+        softAssert.assertTrue(allSearchResultPage.textVisibilityWhenHoverOnBestSellerButton());
         softAssert.assertEquals(allSearchResultPage.numberOfItemsAcrossPages(), allSearchResultPage.itemsCountInPage());
         softAssert.assertAll();
 
