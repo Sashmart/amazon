@@ -2,15 +2,21 @@ import amazon.*;
 import createDriver.CommonActions;
 import createDriver.Config;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
+
+import static amazon.CommonSteps.openHomePageAndChooseCategoryAndType;
 
 public class AmazonTest {
 
+
+    @BeforeMethod
+    public void createDriver() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+    }
+
     @Test
     public void testAmazon() {
-        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
         homePage.waitForPageLoad();
@@ -29,15 +35,8 @@ public class AmazonTest {
 
     @Test
     public void amazonTestOfPercentFunctionality() {
-        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
-        HomePage homePage = new HomePage(CommonActions.getDriver());
-        homePage.goTo();
-        homePage.waitForPageLoad();
-        homePage.selectATopicFromTheEntireSection();
-        homePage.waitForPageLoad();
-        homePage.chooseCategory("Smart Home");
-        homePage.waitForPageLoad();
-        homePage.chooseType("Smart Home Lighting");
+
+        openHomePageAndChooseCategoryAndType();
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoad();
         searchResultPage.chooseRandomItem();
@@ -49,32 +48,27 @@ public class AmazonTest {
 
     @Test
     public void checkPaginationAndHoveringOnBestSeller() {
-        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
-        HomePage homePage = new HomePage(CommonActions.getDriver());
-        homePage.goTo();
-        homePage.waitForPageLoad();
-        homePage.selectATopicFromTheEntireSection();
-        homePage.waitForPageLoad();
-        homePage.chooseCategory("Smart Home");
-        homePage.waitForPageLoad();
-        homePage.chooseType("Smart Home Lighting");
+
+        openHomePageAndChooseCategoryAndType();
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoad();
         searchResultPage.seeAllProductsInPaga();
         AllSearchResultPage allSearchResultPage = new AllSearchResultPage(CommonActions.getDriver());
         allSearchResultPage.waitForPageLoad();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(allSearchResultPage.textVisibilityWhenHoverOnBestSellerButton());
+        if (allSearchResultPage.theNumberOfTheBestSellingItemOnThePage() > 0) {
+            softAssert.assertTrue(allSearchResultPage.textVisibilityWhenHoverOnBestSellerButton());
+
+        }
         softAssert.assertTrue(allSearchResultPage.pageWithPagination());
         softAssert.assertAll();
-
 
     }
 
     @AfterMethod
     public void tearDown() {
-        if (CommonActions.getDriver()!=null) {
-            CommonActions.getDriver().quit();
+        if (CommonActions.getDriver() != null) {
+            CommonActions.getDriver().close();
         }
     }
 }
