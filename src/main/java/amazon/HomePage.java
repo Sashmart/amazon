@@ -26,12 +26,13 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//a[@aria-label='Open Menu']")
     private WebElement openAllCategoryButton;
 
-    @FindBy(xpath = "//span[@class='hm-icon-label']")
-    protected WebElement allButtonClick;
+
     @FindBy(xpath = "//a[text()='Sign in']")
     protected WebElement signInButton;
     @FindBy(xpath = "//a[text()='Other Solutions']")
     protected WebElement itemTopic;
+    @FindBy(xpath = "//*[@id=\"nav-xshop\"]/a[1]")
+    protected WebElement dealsOfTodayButton;
 
     public void goTo() {
         driver.get(SITE_URL);
@@ -71,11 +72,13 @@ public class HomePage extends BasePage {
         WebElement chooseCategory = driver.findElement(By.xpath("//a[text()='" + type + "']"));
         chooseCategory.click();
     }
+    public void dealsOfTodayButtonClick(){
+        dealsOfTodayButton.click();
+    }
 
 
+    @Override
     public void waitForPageLoad() {
-        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(allButtonClick));
-
-
+        new WebDriverWait(driver,Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(dealsOfTodayButton));
     }
 }

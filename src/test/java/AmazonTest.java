@@ -64,7 +64,26 @@ public class AmazonTest {
         softAssert.assertAll();
 
     }
+        @Test
+        public void dealsOfTodayPageFunctionality(){
+        HomePage homePage=new HomePage(CommonActions.getDriver());
+        homePage.goTo();
+        homePage.waitForPageLoad();
+        homePage.dealsOfTodayButtonClick();
+        DealsOfTodayPage dealsOfTodayPage=new DealsOfTodayPage(CommonActions.getDriver());
+        dealsOfTodayPage.waitForPageLoad();
+        SoftAssert softAssert=new SoftAssert();
+        softAssert.assertEquals("Select All",dealsOfTodayPage.checkBoxFilterAboveText());
+        dealsOfTodayPage.chooseTwoRandomItemAtOnce();
+        dealsOfTodayPage.waitForPageLoad();
+        softAssert.assertEquals("Clear All ",dealsOfTodayPage.checkBoxFilterAboveTextAfterChooseItem());
+        dealsOfTodayPage.clickOnButtonClearAll();
+        dealsOfTodayPage.waitForPageLoad();
+        softAssert.assertFalse(dealsOfTodayPage.itemSelect());
+        softAssert.assertAll();
 
+
+        }
     @AfterMethod
     public void tearDown() {
         if (CommonActions.getDriver() != null) {
