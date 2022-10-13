@@ -1,0 +1,19 @@
+package amazon;
+
+import createDriver.CommonActions;
+
+public class CommonSteps {
+    public static void openHomePageAndChooseCategoryAndType(){
+
+        HomePage homePage = new HomePage(CommonActions.getDriver());
+        homePage.goTo();
+        homePage.waitForPageLoad();
+        homePage.selectATopicFromTheEntireSection();
+        homePage.waitForPageLoad();
+        homePage.chooseCategory("Smart Home");
+        homePage.waitForPageLoad();
+        homePage.chooseType("Smart Home Lighting");
+
+
+    }
+}

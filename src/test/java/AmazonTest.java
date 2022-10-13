@@ -1,22 +1,26 @@
-import amazon.HomePage;
-import amazon.ProductPage;
-import amazon.SearchResultPage;
+import amazon.*;
 import createDriver.CommonActions;
 import createDriver.Config;
 import org.testng.Assert;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
+
+import static amazon.CommonSteps.openHomePageAndChooseCategoryAndType;
 
 public class AmazonTest {
 
+
+    @BeforeMethod
+    public void createDriver() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+    }
+
     @Test
     public void testAmazon() {
-        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
         homePage.waitForPageLoad();
-        homePage.chooseCategory("Books");
+        homePage.chooseTopic("Books");
         homePage.searchByName("Grammar");
         homePage.searchButtonClick();
         String myCountryOfResidence = "Armenia";
@@ -31,17 +35,10 @@ public class AmazonTest {
 
     @Test
     public void amazonTestOfPercentFunctionality() {
-        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
-        HomePage homePage = new HomePage(CommonActions.getDriver());
-        homePage.goTo();
-        homePage.waitForPageLoad();
-        homePage.chooseTopicButton();
-        homePage.waitForPreviousCategoryItemVisibility();
-        homePage.chooseCategory1("Smart Home");
-        homePage.waitForPreviousTopicItemVisibility();
-        homePage.chooseType("Smart Home Lighting");
+
+        openHomePageAndChooseCategoryAndType();
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
-        searchResultPage.waitForPageLoadVisibilityOfAllItem();
+        searchResultPage.waitForPageLoad();
         searchResultPage.chooseRandomItem();
         ProductPage productPage = new ProductPage(CommonActions.getDriver());
         productPage.waitForPageLoad();
@@ -49,10 +46,29 @@ public class AmazonTest {
 
     }
 
-    @AfterMethod(alwaysRun = true)
-    public void close() {
-        if (Config.HOLD_BROWSER_OPEN) {
-            CommonActions.getDriver().quit();
+    @Test
+    public void checkPaginationAndHoveringOnBestSeller() {
+
+        openHomePageAndChooseCategoryAndType();
+        SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
+        searchResultPage.waitForPageLoad();
+        searchResultPage.seeAllProductsInPaga();
+        AllSearchResultPage allSearchResultPage = new AllSearchResultPage(CommonActions.getDriver());
+        allSearchResultPage.waitForPageLoad();
+        SoftAssert softAssert = new SoftAssert();
+        if (allSearchResultPage.theNumberOfTheBestSellingItemOnThePage() > 0) {
+            softAssert.assertTrue(allSearchResultPage.textVisibilityWhenHoverOnBestSellerButton());
+
+        }
+        softAssert.assertTrue(allSearchResultPage.pageWithPagination());
+        softAssert.assertAll();
+
+    }
+
+    @AfterMethod
+    public void tearDown() {
+        if (CommonActions.getDriver() != null) {
+            CommonActions.getDriver().close();
         }
     }
 }
