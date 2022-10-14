@@ -9,9 +9,7 @@ public class CommonSteps {
         homePage.goTo();
         homePage.waitForPageLoad();
         homePage.selectATopicFromTheEntireSection();
-        homePage.waitForPageLoad();
         homePage.chooseCategory("Smart Home");
-        homePage.waitForPageLoad();
         homePage.chooseType("Smart Home Lighting");
 
 

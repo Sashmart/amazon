@@ -22,23 +22,17 @@ public class DealsOfTodayPage extends BasePage {
     protected WebElement checkBoxFilterAboveText;
     @FindBy(xpath = "//a[@aria-label='Clear departments filter']")
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
+    @FindBy(xpath = "//div[@class='a-row a-spacing-small']")
+    protected List <WebElement> listOfItemsInPage;
 
 
     public void chooseTwoRandomItemAtOnce() {
 
         Random rand = new Random();
-        int randNumber = rand.nextInt(1, checkBoxFilterList.size());
-        Random random = new Random();
-        int randomNumber = random.nextInt(1, checkBoxFilterList.size());
         Actions act = new Actions(driver);
-        if (randomNumber == randNumber) {
-            if (randomNumber == checkBoxFilterList.size()) {
-                act.click(checkBoxFilterList.get(randomNumber)).click(checkBoxFilterList.get(randomNumber - 1)).build().perform();
-            } else if (randomNumber == 1) {
-                act.click(checkBoxFilterList.get(randomNumber)).click(checkBoxFilterList.get(randomNumber + 1)).build().perform();
-            }
-        } else
-            act.click(checkBoxFilterList.get(randNumber)).click(checkBoxFilterList.get(randomNumber)).build().perform();
+        act.click(checkBoxFilterList.
+                get(rand.nextInt(1,checkBoxFilterList.size()/2))).click(checkBoxFilterList.
+                get(rand.nextInt(checkBoxFilterList.size()/2+1,checkBoxFilterList.size()))).build().perform();
     }
 
     public String checkBoxFilterAboveText() {
@@ -66,6 +60,7 @@ public class DealsOfTodayPage extends BasePage {
     }
 
     public void waitForPageLoad() {
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(buttonOfBackToTopText));
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
+                elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
     }
 }
