@@ -60,7 +60,9 @@ public class DealsOfTodayPage extends BasePage {
     }
 
     public void waitForPageLoad() {
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
-                elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
+        if(listOfItemsInPage.size()>1){
+            new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
+                    elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
+        }
     }
 }
