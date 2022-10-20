@@ -34,8 +34,9 @@ public class HomePage extends BasePage {
     protected WebElement itemTopic;
     @FindBy(xpath = "//div[@id='nav-xshop']/a[contains(text(),'Today')]")
     protected WebElement dealsOfTodayButton;
-    @FindBy(xpath = "//div[contains(@class,'gw-col csm-placement')]")
+    @FindBy(xpath = "//div[@class='a-cardui-body']")
     protected List <WebElement> listOfItemsInPage;
+
 
 
     public void goTo() {
@@ -83,11 +84,11 @@ public class HomePage extends BasePage {
 
     @Override
     public void waitForPageLoad() {
-       if(listOfItemsInPage.size()>1){
+       if(listOfItemsInPage.size()>0){
         new WebDriverWait(driver,Duration.ofSeconds(20)).
                 until(ExpectedConditions.visibilityOf(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
        }
-
+        super.waitForPageLoad();
 
     }
 }

@@ -24,6 +24,9 @@ public class DealsOfTodayPage extends BasePage {
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
     @FindBy(xpath = "//div[@class='a-row a-spacing-small']")
     protected List <WebElement> listOfItemsInPage;
+    @FindBy(xpath = "//a[contains(@aria-label,' View or edit your browsing history')]")
+    protected WebElement viewOrEditYourBrowsingHistoryButton;
+
 
 
     public void chooseTwoRandomItemAtOnce() {
@@ -60,9 +63,11 @@ public class DealsOfTodayPage extends BasePage {
     }
 
     public void waitForPageLoad() {
-        if(listOfItemsInPage.size()>1){
+        if(listOfItemsInPage.size()>0){
             new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
                     elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
         }
+        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
+                elementToBeClickable(viewOrEditYourBrowsingHistoryButton));
     }
 }
