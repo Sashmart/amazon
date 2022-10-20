@@ -6,6 +6,7 @@ import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import static amazon.CommonSteps.openHomePageAndChooseCategoryAndType;
+import static amazon.CommonSteps.openHomePageAndChooseDealsOfToday;
 
 public class AmazonTest {
 
@@ -64,26 +65,41 @@ public class AmazonTest {
         softAssert.assertAll();
 
     }
-        @Test
-        public void dealsOfTodayPageFunctionality(){
-        HomePage homePage=new HomePage(CommonActions.getDriver());
-        homePage.goTo();
-        homePage.waitForPageLoad();
-        homePage.dealsOfTodayButtonClick();
-        DealsOfTodayPage dealsOfTodayPage=new DealsOfTodayPage(CommonActions.getDriver());
+
+    @Test
+    public void dealsOfTodayPageFunctionality() {
+        openHomePageAndChooseDealsOfToday();
+        DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
         dealsOfTodayPage.waitForPageLoad();
-        SoftAssert softAssert=new SoftAssert();
-        softAssert.assertEquals("Select All",dealsOfTodayPage.checkBoxFilterAboveText());
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals("Select All", dealsOfTodayPage.checkBoxFilterAboveText());
         dealsOfTodayPage.chooseTwoRandomItemAtOnce();
         dealsOfTodayPage.waitForPageLoad();
-        softAssert.assertEquals("Clear All ",dealsOfTodayPage.checkBoxFilterAboveTextAfterChooseItem());
+        softAssert.assertEquals("Clear All ", dealsOfTodayPage.checkBoxFilterAboveTextAfterChooseItem());
         dealsOfTodayPage.clickOnButtonClearAll();
         dealsOfTodayPage.waitForPageLoad();
         softAssert.assertFalse(dealsOfTodayPage.itemSelect());
         softAssert.assertAll();
 
 
-        }
+    }
+
+    @Test
+    public void checkPriceFilterFunctionality(){
+        openHomePageAndChooseDealsOfToday();
+        DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
+        dealsOfTodayPage.clickItemWhichHaveTextFashionOfWomenFromRitual();
+        FashionOfWomenFromRitualPage fashionOfWomenFromRitualPage = new FashionOfWomenFromRitualPage(CommonActions.getDriver());
+        fashionOfWomenFromRitualPage.waitForPageLoad();
+        fashionOfWomenFromRitualPage.chooseProductWhichUpToTwentyFiveDollars();
+        fashionOfWomenFromRitualPage.waitForPageLoad();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(fashionOfWomenFromRitualPage.firstPageOfThePaginationIsEnabled());
+        softAssert.assertTrue(fashionOfWomenFromRitualPage.inFirsPageThereIsProductWhichIsLessOrEqualThanToTwentyFive());
+        softAssert.assertAll();
+
+    }
+
     @AfterMethod
     public void tearDown() {
         if (CommonActions.getDriver() != null) {

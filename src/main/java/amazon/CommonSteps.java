@@ -3,7 +3,7 @@ package amazon;
 import createDriver.CommonActions;
 
 public class CommonSteps {
-    public static void openHomePageAndChooseCategoryAndType(){
+    public static void openHomePageAndChooseCategoryAndType() {
 
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
@@ -13,5 +13,12 @@ public class CommonSteps {
         homePage.chooseType("Smart Home Lighting");
 
 
+    }
+
+    public static void openHomePageAndChooseDealsOfToday() {
+        HomePage homePage = new HomePage(CommonActions.getDriver());
+        homePage.goTo();
+        homePage.waitForPageLoad();
+        homePage.dealsOfTodayButtonClick();
     }
 }

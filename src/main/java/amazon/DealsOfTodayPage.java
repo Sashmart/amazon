@@ -23,10 +23,11 @@ public class DealsOfTodayPage extends BasePage {
     @FindBy(xpath = "//a[@aria-label='Clear departments filter']")
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
     @FindBy(xpath = "//div[@class='a-row a-spacing-small']")
-    protected List <WebElement> listOfItemsInPage;
-    @FindBy(xpath = "//a[contains(@aria-label,' View or edit your browsing history')]")
-    protected WebElement viewOrEditYourBrowsingHistoryButton;
-
+    protected List<WebElement> listOfItemsInPage;
+    @FindBy(xpath = "//span[@data-testid='shoveler-pages-counter']//span[contains(text(),'Page 1 of')]")
+    protected WebElement theTextWrittenAtTheBottomOfThePage;
+    @FindBy(xpath = "//div[contains(text(),'Fashion from Daily Ritual')]")
+    protected WebElement itemWhichHaveATextFashionOfWomenFromDailyRitual;
 
 
     public void chooseTwoRandomItemAtOnce() {
@@ -34,8 +35,8 @@ public class DealsOfTodayPage extends BasePage {
         Random rand = new Random();
         Actions act = new Actions(driver);
         act.click(checkBoxFilterList.
-                get(rand.nextInt(1,checkBoxFilterList.size()/2))).click(checkBoxFilterList.
-                get(rand.nextInt(checkBoxFilterList.size()/2+1,checkBoxFilterList.size()))).build().perform();
+                get(rand.nextInt(1, checkBoxFilterList.size() / 2))).click(checkBoxFilterList.
+                get(rand.nextInt(checkBoxFilterList.size() / 2 + 1, checkBoxFilterList.size()))).build().perform();
     }
 
     public String checkBoxFilterAboveText() {
@@ -62,12 +63,18 @@ public class DealsOfTodayPage extends BasePage {
         return itemSelect;
     }
 
+    public void clickItemWhichHaveTextFashionOfWomenFromRitual() {
+        itemWhichHaveATextFashionOfWomenFromDailyRitual.click();
+    }
+
     public void waitForPageLoad() {
-        if(listOfItemsInPage.size()>0){
+        if (listOfItemsInPage.size() > 0) {
             new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
-                    elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
+                    elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size() - 1)));
         }
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
-                elementToBeClickable(viewOrEditYourBrowsingHistoryButton));
+                visibilityOf(theTextWrittenAtTheBottomOfThePage));
     }
+
+
 }
