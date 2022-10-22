@@ -1,5 +1,6 @@
 package amazon;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -24,8 +25,6 @@ public class DealsOfTodayPage extends BasePage {
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
     @FindBy(xpath = "//div[@class='a-row a-spacing-small']")
     protected List<WebElement> listOfItemsInPage;
-    @FindBy(xpath = "//span[@data-testid='shoveler-pages-counter']//span[contains(text(),'Page 1 of')]")
-    protected WebElement theTextWrittenAtTheBottomOfThePage;
     @FindBy(xpath = "//div[contains(text(),'Fashion from Daily Ritual')]")
     protected WebElement itemWhichHaveATextFashionOfWomenFromDailyRitual;
 
@@ -68,13 +67,13 @@ public class DealsOfTodayPage extends BasePage {
     }
 
     public void waitForPageLoad() {
-        if (listOfItemsInPage.size() > 0) {
-            new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
-                    elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size() - 1)));
-        }
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.
-                visibilityOf(theTextWrittenAtTheBottomOfThePage));
-    }
 
+        new WebDriverWait(driver, Duration.ofSeconds(20)).
+                until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//div[@class='a-row a-spacing-small']"), 1));
+        new WebDriverWait(driver, Duration.ofSeconds(20)).
+                until(ExpectedConditions.elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size() - 1)));
+
+        super.waitForPageLoad();
+    }
 
 }

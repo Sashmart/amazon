@@ -84,22 +84,6 @@ public class AmazonTest {
 
     }
 
-    @Test
-    public void checkPriceFilterFunctionality(){
-        openHomePageAndChooseDealsOfToday();
-        DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
-        dealsOfTodayPage.clickItemWhichHaveTextFashionOfWomenFromRitual();
-        FashionOfWomenFromRitualPage fashionOfWomenFromRitualPage = new FashionOfWomenFromRitualPage(CommonActions.getDriver());
-        fashionOfWomenFromRitualPage.waitForPageLoad();
-        fashionOfWomenFromRitualPage.chooseProductWhichUpToTwentyFiveDollars();
-        fashionOfWomenFromRitualPage.waitForPageLoad();
-        SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(fashionOfWomenFromRitualPage.firstPageOfThePaginationIsEnabled());
-        softAssert.assertTrue(fashionOfWomenFromRitualPage.inFirsPageThereIsProductWhichIsLessOrEqualThanToTwentyFive());
-        softAssert.assertAll();
-
-    }
-
     @AfterMethod
     public void tearDown() {
         if (CommonActions.getDriver() != null) {
