@@ -21,8 +21,6 @@ public class FashionOfWomenFromRitualPage extends BasePage {
     protected List<WebElement> listOfIntegerPriceOfTheItem;
     @FindBy(xpath = "//span[@class='a-price-fraction']")
     protected List<WebElement> listOfDoublePriceOfTheItem;
-    @FindBy(xpath = "//span[@class='a-size-large a-color-base']")
-    protected WebElement shopAllDealsButton;
     @FindBy(xpath = "//div[@class='a-section octopus-dlp-image-shield']")
     protected List<WebElement> listOfItemInPage;
     @FindBy(xpath = "//li[@data-page-number='1']")
@@ -51,10 +49,11 @@ public class FashionOfWomenFromRitualPage extends BasePage {
     }
 
     public void waitForPageLoad() {
-        if (listOfItemInPage.size() > 0) {
-            new WebDriverWait(driver, Duration.ofSeconds(20)).
+
+        new WebDriverWait(driver, Duration.ofSeconds(20)).
                     until(ExpectedConditions.elementToBeClickable(listOfItemInPage.get(listOfItemInPage.size() - 1)));
-        }
-        new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.elementToBeClickable(shopAllDealsButton));
+        super.waitForPageLoad();
+
+
     }
 }
