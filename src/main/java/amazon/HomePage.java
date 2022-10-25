@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.List;
 
 public class HomePage extends BasePage {
     public HomePage(WebDriver driver) {
@@ -26,12 +27,17 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//a[@aria-label='Open Menu']")
     private WebElement openAllCategoryButton;
 
-    @FindBy(xpath = "//span[@class='hm-icon-label']")
-    protected WebElement allButtonClick;
+
     @FindBy(xpath = "//a[text()='Sign in']")
     protected WebElement signInButton;
     @FindBy(xpath = "//a[text()='Other Solutions']")
     protected WebElement itemTopic;
+    @FindBy(xpath = "//div[@id='nav-xshop']/a[contains(text(),'Today')]")
+    protected WebElement dealsOfTodayButton;
+    @FindBy(xpath = "//div[@class='a-cardui-body']")
+    protected List <WebElement> listOfItemsInPage;
+
+
 
     public void goTo() {
         driver.get(SITE_URL);
@@ -71,11 +77,18 @@ public class HomePage extends BasePage {
         WebElement chooseCategory = driver.findElement(By.xpath("//a[text()='" + type + "']"));
         chooseCategory.click();
     }
+    public void dealsOfTodayButtonClick(){
+        dealsOfTodayButton.click();
+    }
 
 
+    @Override
     public void waitForPageLoad() {
-        new WebDriverWait(driver, Duration.ofSeconds(15)).until(ExpectedConditions.elementToBeClickable(allButtonClick));
-
+       if(listOfItemsInPage.size()>0){
+        new WebDriverWait(driver,Duration.ofSeconds(20)).
+                until(ExpectedConditions.visibilityOf(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
+       }
+        super.waitForPageLoad();
 
     }
 }
