@@ -78,7 +78,7 @@ public class AmazonTest {
         softAssert.assertEquals("Clear All ", dealsOfTodayPage.checkBoxFilterAboveTextAfterChooseItem());
         dealsOfTodayPage.clickOnButtonClearAll();
         dealsOfTodayPage.waitForPageLoad();
-        softAssert.assertFalse(dealsOfTodayPage.itemSelect());
+        softAssert.assertFalse(dealsOfTodayPage.anyOfTheItemsIsSelected());
         softAssert.assertAll();
 
 

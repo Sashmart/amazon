@@ -17,14 +17,14 @@ public class DealsOfTodayPage extends BasePage {
         super(driver);
     }
 
+    private final String theNameOfItemClass = "DealGridItem-module__dealItemContent_1vFddcq1F8pUxM8dd9FW32";
+
     @FindBy(xpath = "//li[contains(@class,'CheckboxFilter-module')]")
     protected List<WebElement> checkBoxFilterList;
     @FindBy(xpath = "//a[@aria-label='Select all departments']")
     protected WebElement checkBoxFilterAboveText;
     @FindBy(xpath = "//a[@aria-label='Clear departments filter']")
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
-    @FindBy(xpath = "//div[@class='a-row a-spacing-small']")
-    protected List<WebElement> listOfItemsInPage;
     @FindBy(xpath = "//div[contains(text(),'Fashion from Daily Ritual')]")
     protected WebElement itemWhichHaveATextFashionOfWomenFromDailyRitual;
 
@@ -50,16 +50,15 @@ public class DealsOfTodayPage extends BasePage {
         checkBoxFilterAboveTextWhenChooseItem.click();
     }
 
-    public boolean itemSelect() {
-        boolean itemSelect = true;
+    public boolean anyOfTheItemsIsSelected() {
         for (int i = 0; i < checkBoxFilterList.size(); i++) {
-            itemSelect = checkBoxFilterList.get(i).isSelected();
-            if (itemSelect == true) {
-                return itemSelect;
+            if (checkBoxFilterList.get(i).isSelected()) {
+                return true;
             }
 
         }
-        return itemSelect;
+        return false;
+
     }
 
     public void clickItemWhichHaveTextFashionOfWomenFromRitual() {
@@ -67,11 +66,11 @@ public class DealsOfTodayPage extends BasePage {
     }
 
     public void waitForPageLoad() {
-
+        WebElement itemClassName = driver.findElement(By.className(theNameOfItemClass));
         new WebDriverWait(driver, Duration.ofSeconds(20)).
-                until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath("//div[@class='a-row a-spacing-small']"), 1));
+                until(ExpectedConditions.numberOfElementsToBeMoreThan(By.className(theNameOfItemClass), 0));
         new WebDriverWait(driver, Duration.ofSeconds(20)).
-                until(ExpectedConditions.elementToBeClickable(listOfItemsInPage.get(listOfItemsInPage.size() - 1)));
+                until(ExpectedConditions.visibilityOfAllElements(itemClassName));
 
         super.waitForPageLoad();
     }
