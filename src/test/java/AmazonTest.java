@@ -100,6 +100,29 @@ public class AmazonTest {
 
     }
 
+    @Test
+    public void checkShoppingWithPointsReviews() {
+        HomePage homePage = new HomePage(CommonActions.getDriver());
+        homePage.goTo();
+        homePage.waitForPageLoad();
+        homePage.shopWithPointsButtonClick();
+        ShopWithPointsPage shopWithPointsPage = new ShopWithPointsPage(CommonActions.getDriver());
+        shopWithPointsPage.waitForPageLoad();
+        shopWithPointsPage.choosePaymentType("Capital One");
+        PaymentTypePage paymentTypePage = new PaymentTypePage(CommonActions.getDriver());
+        paymentTypePage.goToLookCustomerRatings();
+        CostumerReviewsPage costumerReviewsPage = new CostumerReviewsPage(CommonActions.getDriver());
+        costumerReviewsPage.waitForPageLoad();
+        costumerReviewsPage.selectFromCustomerReviewsByName(CostumerReviewsPage.costumerReviewsNameGreat);
+        costumerReviewsPage.waitForPageLoad();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(costumerReviewsPage.countCostumerReviewsInPage() > 2);
+        costumerReviewsPage.refreshPage();
+        softAssert.assertEquals(CostumerReviewsPage.costumerReviewsNameGreat, costumerReviewsPage.getCustomerReviewsByNameAfterRefresh());
+        softAssert.assertAll();
+
+    }
+
     @AfterMethod
     public void tearDown() {
         if (CommonActions.getDriver() != null) {

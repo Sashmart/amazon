@@ -36,6 +36,8 @@ public class HomePage extends BasePage {
     protected WebElement dealsOfTodayButton;
     @FindBy(xpath = "//div[@class='a-cardui-body']")
     protected List<WebElement> listOfItemsInPage;
+    @FindBy(xpath = "//a[text()='Shop with Points']")
+    protected WebElement shopWithPointsButton;
 
 
     public void goTo() {
@@ -79,6 +81,10 @@ public class HomePage extends BasePage {
 
     public void dealsOfTodayButtonClick() {
         dealsOfTodayButton.click();
+    }
+
+    public void shopWithPointsButtonClick() {
+        shopWithPointsButton.click();
     }
 
 
