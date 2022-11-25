@@ -16,7 +16,7 @@ public class CostumerReviewsPage extends BasePage {
         super(driver);
     }
 
-    public static String costumerReviewsNameGreat = "Great";
+    private  String aWordInCostumerReviews ;
     private String dataHookOfCostumerReviewsInPage = "//div[@data-hook='review']";
     @FindBy(xpath = "//input[@type='search']")
     protected WebElement searchCostumerReviewsButton;
@@ -40,9 +40,19 @@ public class CostumerReviewsPage extends BasePage {
         return costumersReviewsInPage.size();
     }
 
-    @Override
+
     public void refreshPage() {
-        super.refreshPage();
+
+        driver.navigate().refresh();
+    }
+
+    public String getaWordInCostumerReviews() {
+        return aWordInCostumerReviews;
+    }
+
+    public String setaWordInCostumerReviews(String aWordInCostumerReviews) {
+        this.aWordInCostumerReviews = aWordInCostumerReviews;
+        return aWordInCostumerReviews;
     }
 
     public void waitForPageLoad() {

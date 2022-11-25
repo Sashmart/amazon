@@ -37,7 +37,7 @@ public class AmazonTest {
     @Test
     public void amazonTestOfPercentFunctionality() {
 
-        openHomePageAndChooseCategoryAndType();
+        openHomePageAndChooseCategoryAndType("Smart Home","Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoad();
         searchResultPage.chooseRandomItem();
@@ -50,7 +50,7 @@ public class AmazonTest {
     @Test
     public void checkPaginationAndHoveringOnBestSeller() {
 
-        openHomePageAndChooseCategoryAndType();
+        openHomePageAndChooseCategoryAndType("Smart Home","Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoad();
         searchResultPage.seeAllProductsInPaga();
@@ -85,17 +85,18 @@ public class AmazonTest {
     }
 
     @Test
-    public void checkPriceFilterFunctionality() {
+    public void checkPriceFilterFunctionality()  {
         openHomePageAndChooseDealsOfToday();
         DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
-        dealsOfTodayPage.clickItemWhichHaveTextFashionOfWomenFromRitual();
+        dealsOfTodayPage.clickTheElementThatHasTheFollowingText("Women's Fashion from Daily Ritual");
         FashionOfWomenFromRitualPage fashionOfWomenFromRitualPage = new FashionOfWomenFromRitualPage(CommonActions.getDriver());
         fashionOfWomenFromRitualPage.waitForPageLoad();
-        fashionOfWomenFromRitualPage.chooseProductWhichUpToTwentyFiveDollars();
+        fashionOfWomenFromRitualPage.filterPrice("Up to $25");
         fashionOfWomenFromRitualPage.waitForPageLoad();
         SoftAssert softAssert = new SoftAssert();
-        softAssert.assertTrue(fashionOfWomenFromRitualPage.firstPageOfThePaginationIsEnabled());
-        softAssert.assertTrue(fashionOfWomenFromRitualPage.inFirsPageThereIsProductWhichIsLessOrEqualThanToTwentyFive());
+        softAssert.assertTrue(fashionOfWomenFromRitualPage.firstPageOfThePaginationIsEnabled(),"Front page is not enabled");
+        softAssert.assertTrue(fashionOfWomenFromRitualPage.inFirsPageThereIsProductWhichIsLessOrEqualThanToTwentyFive(),
+                "There is a product on the page with a price greater than or equal to the asking price");
         softAssert.assertAll();
 
     }
@@ -113,12 +114,12 @@ public class AmazonTest {
         paymentTypePage.goToLookCustomerRatings();
         CostumerReviewsPage costumerReviewsPage = new CostumerReviewsPage(CommonActions.getDriver());
         costumerReviewsPage.waitForPageLoad();
-        costumerReviewsPage.selectFromCustomerReviewsByName(CostumerReviewsPage.costumerReviewsNameGreat);
+        costumerReviewsPage.selectFromCustomerReviewsByName(costumerReviewsPage.setaWordInCostumerReviews("Great"));
         costumerReviewsPage.waitForPageLoad();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(costumerReviewsPage.countCostumerReviewsInPage() > 2);
         costumerReviewsPage.refreshPage();
-        softAssert.assertEquals(CostumerReviewsPage.costumerReviewsNameGreat, costumerReviewsPage.getCustomerReviewsByNameAfterRefresh());
+        softAssert.assertEquals(costumerReviewsPage.getaWordInCostumerReviews(),costumerReviewsPage.getCustomerReviewsByNameAfterRefresh());
         softAssert.assertAll();
 
     }

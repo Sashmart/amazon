@@ -15,7 +15,7 @@ public class PaymentTypePage extends BasePage {
 
     @FindBy(xpath = "//a[contains(text(),'customer ratings')]")
     protected WebElement customerRatingsButton;
-    @FindBy(id = "a-autoid-10-announce")
+    @FindBy(xpath = "//a[@data-hook='write-review-button']")
     protected WebElement writeACostumerReviewButton;
 
     public void goToLookCustomerRatings() {

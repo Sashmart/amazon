@@ -62,7 +62,7 @@ public class SearchResultPage extends BasePage {
 
     public void chooseRandomItem() {
         Random random = new Random();
-        int randomNumber = random.nextInt(1, itemList.size());
+        int randomNumber = random.nextInt(1, itemList.size()-1);
         WebElement chooseRandomItem = driver.findElement
                 (By.xpath("//div[contains(@class,'search-result-card')]" + "[" + randomNumber + "]"));
         chooseRandomItem.click();

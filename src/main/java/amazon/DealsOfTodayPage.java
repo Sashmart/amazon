@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class DealsOfTodayPage extends BasePage {
@@ -17,7 +18,7 @@ public class DealsOfTodayPage extends BasePage {
         super(driver);
     }
 
-    private final String theNameOfItemClass = "DealGridItem-module__dealItemContent_1vFddcq1F8pUxM8dd9FW32";
+    private final String theNameOfItemClass = "//div[contains(@class,'DealGridItem-module__dealItemContent')]";
 
     @FindBy(xpath = "//li[contains(@class,'CheckboxFilter-module')]")
     protected List<WebElement> checkBoxFilterList;
@@ -25,8 +26,6 @@ public class DealsOfTodayPage extends BasePage {
     protected WebElement checkBoxFilterAboveText;
     @FindBy(xpath = "//a[@aria-label='Clear departments filter']")
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
-    @FindBy(xpath = "//div[contains(text(),'Fashion from Daily Ritual')]")
-    protected WebElement itemWhichHaveATextFashionOfWomenFromDailyRitual;
 
 
     public void chooseTwoRandomItemAtOnce() {
@@ -61,12 +60,19 @@ public class DealsOfTodayPage extends BasePage {
 
     }
 
-    public void clickItemWhichHaveTextFashionOfWomenFromRitual() {
-        itemWhichHaveATextFashionOfWomenFromDailyRitual.click();
+    public void clickTheElementThatHasTheFollowingText(String name) {
+
+        try {
+            driver.findElement(By.linkText(name)).click();
+
+        } catch (Exception e) {
+
+            System.out.println("The requested product is not available on the page");
+        }
     }
 
     public void waitForPageLoad() {
-        WebElement itemClassName = driver.findElement(By.className(theNameOfItemClass));
+        WebElement itemClassName = driver.findElement(By.xpath(theNameOfItemClass));
         new WebDriverWait(driver, Duration.ofSeconds(20)).
                 until(ExpectedConditions.numberOfElementsToBeMoreThan(By.className(theNameOfItemClass), 0));
         new WebDriverWait(driver, Duration.ofSeconds(20)).
