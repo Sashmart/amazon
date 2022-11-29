@@ -10,7 +10,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.Random;
 
 public class DealsOfTodayPage extends BasePage {
@@ -26,6 +25,8 @@ public class DealsOfTodayPage extends BasePage {
     protected WebElement checkBoxFilterAboveText;
     @FindBy(xpath = "//a[@aria-label='Clear departments filter']")
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
+    @FindBy(linkText = "Women's Fashion from Daily Ritual")
+    protected WebElement theNameOfTheSelectedSpecies;
 
 
     public void chooseTwoRandomItemAtOnce() {
@@ -60,15 +61,9 @@ public class DealsOfTodayPage extends BasePage {
 
     }
 
-    public void clickTheElementThatHasTheFollowingText(String name) {
+    public void clickOnTheNameOfTheSelectedSpecies() {
 
-        try {
-            driver.findElement(By.linkText(name)).click();
-
-        } catch (Exception e) {
-
-            System.out.println("The requested product is not available on the page");
-        }
+        theNameOfTheSelectedSpecies.click();
     }
 
     public void waitForPageLoad() {

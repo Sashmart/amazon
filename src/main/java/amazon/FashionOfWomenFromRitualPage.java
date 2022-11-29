@@ -1,6 +1,5 @@
 package amazon;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -9,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class FashionOfWomenFromRitualPage extends BasePage {
 
@@ -17,8 +15,6 @@ public class FashionOfWomenFromRitualPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//span[@class='a-declarative']/span[contains(text(),'Up to $25')]")
-    protected WebElement upToTwentyFIveDollarsButton;
     @FindBy(xpath = "//span[@class='a-price-whole']")
     protected List<WebElement> listOfIntegerPriceOfTheItem;
     @FindBy(xpath = "//span[@class='a-price-fraction']")
@@ -27,17 +23,12 @@ public class FashionOfWomenFromRitualPage extends BasePage {
     protected WebElement shopAllDealsButton;
     @FindBy(xpath = "//li[@data-page-number='1']")
     protected WebElement firstPageOfThePagination;
+    @FindBy(linkText = "Up to $25")
+    protected WebElement priceFilterInPage;
 
-    public void filterPrice(String price)
-    {
-        try {
-            driver.findElement(By.linkText(price)).click();
+    public void clickOnFilterPrice() {
 
-        } catch (Exception e) {
-
-            System.out.println("There is no such filter on the page ");
-
-        }
+        priceFilterInPage.click();
 
     }
 
@@ -62,7 +53,7 @@ public class FashionOfWomenFromRitualPage extends BasePage {
     public void waitForPageLoad() {
 
         new WebDriverWait(driver, Duration.ofSeconds(20)).
-                    until(ExpectedConditions.elementToBeClickable(shopAllDealsButton));
+                until(ExpectedConditions.elementToBeClickable(shopAllDealsButton));
         super.waitForPageLoad();
 
 

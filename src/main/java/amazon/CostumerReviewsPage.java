@@ -16,7 +16,7 @@ public class CostumerReviewsPage extends BasePage {
         super(driver);
     }
 
-    private  String aWordInCostumerReviews ;
+    private String aWordInCostumerReviews;
     private String dataHookOfCostumerReviewsInPage = "//div[@data-hook='review']";
     @FindBy(xpath = "//input[@type='search']")
     protected WebElement searchCostumerReviewsButton;
@@ -32,7 +32,7 @@ public class CostumerReviewsPage extends BasePage {
         searchCostumerReviewsButton.sendKeys(Keys.ENTER);
     }
 
-    public String getCustomerReviewsByNameAfterRefresh() {
+    public String getCustomerReviewsName() {
         return searchCostumerReviewsButton.getAttribute("value");
     }
 
@@ -46,14 +46,6 @@ public class CostumerReviewsPage extends BasePage {
         driver.navigate().refresh();
     }
 
-    public String getaWordInCostumerReviews() {
-        return aWordInCostumerReviews;
-    }
-
-    public String setaWordInCostumerReviews(String aWordInCostumerReviews) {
-        this.aWordInCostumerReviews = aWordInCostumerReviews;
-        return aWordInCostumerReviews;
-    }
 
     public void waitForPageLoad() {
         new WebDriverWait(driver, Duration.ofSeconds(20)).
