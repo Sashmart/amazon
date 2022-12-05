@@ -88,10 +88,10 @@ public class AmazonTest {
     public void checkPriceFilterFunctionality() {
         openHomePageAndChooseDealsOfToday();
         DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
-        dealsOfTodayPage.clickOnTheNameOfTheSelectedSpecies();
+        dealsOfTodayPage.chooseCategory("Women's Fashion from Daily Ritual");
         FashionOfWomenFromRitualPage fashionOfWomenFromRitualPage = new FashionOfWomenFromRitualPage(CommonActions.getDriver());
         fashionOfWomenFromRitualPage.waitForPageLoad();
-        fashionOfWomenFromRitualPage.clickOnFilterPrice();
+        fashionOfWomenFromRitualPage.chooseFilterPrice("Up to $25");
         fashionOfWomenFromRitualPage.waitForPageLoad();
         SoftAssert softAssert = new SoftAssert();
         softAssert.assertTrue(fashionOfWomenFromRitualPage.firstPageOfThePaginationIsEnabled(), "Front page is not enabled");

@@ -1,5 +1,6 @@
 package amazon;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -23,13 +24,11 @@ public class FashionOfWomenFromRitualPage extends BasePage {
     protected WebElement shopAllDealsButton;
     @FindBy(xpath = "//li[@data-page-number='1']")
     protected WebElement firstPageOfThePagination;
-    @FindBy(linkText = "Up to $25")
-    protected WebElement priceFilterInPage;
 
-    public void clickOnFilterPrice() {
 
-        priceFilterInPage.click();
+    public void chooseFilterPrice(String priceFilter) {
 
+       driver.findElement(By.linkText(priceFilter)).click();
     }
 
     public boolean inFirsPageThereIsProductWhichIsLessOrEqualThanToTwentyFive() {

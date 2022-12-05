@@ -25,8 +25,7 @@ public class DealsOfTodayPage extends BasePage {
     protected WebElement checkBoxFilterAboveText;
     @FindBy(xpath = "//a[@aria-label='Clear departments filter']")
     protected WebElement checkBoxFilterAboveTextWhenChooseItem;
-    @FindBy(linkText = "Women's Fashion from Daily Ritual")
-    protected WebElement theNameOfTheSelectedSpecies;
+
 
 
     public void chooseTwoRandomItemAtOnce() {
@@ -61,9 +60,9 @@ public class DealsOfTodayPage extends BasePage {
 
     }
 
-    public void clickOnTheNameOfTheSelectedSpecies() {
+    public void chooseCategory(String category) {
 
-        theNameOfTheSelectedSpecies.click();
+        driver.findElement(By.linkText(category));
     }
 
     public void waitForPageLoad() {
