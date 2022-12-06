@@ -23,4 +23,5 @@ public class BasePage {
     public void waitForPageLoad(){
         new WebDriverWait(driver, Duration.ofSeconds(20)).until(ExpectedConditions.visibilityOf(buttonOfBackToTopText));
     }
+
 }

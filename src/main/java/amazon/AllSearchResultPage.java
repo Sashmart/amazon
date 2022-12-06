@@ -29,7 +29,7 @@ public class AllSearchResultPage extends BasePage {
     public boolean textVisibilityWhenHoverOnBestSellerButton() {
 
         Random random = new Random();
-        int randomNumber = random.nextInt(1, textWhenHoverBestSeller.size());
+        int randomNumber = random.nextInt(1, textWhenHoverBestSeller.size()-1);
         Actions act = new Actions(driver);
         act.moveToElement(textWhenHoverBestSeller.get(randomNumber)).build().perform();
 

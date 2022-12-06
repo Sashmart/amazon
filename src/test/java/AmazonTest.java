@@ -6,6 +6,7 @@ import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import static amazon.CommonSteps.openHomePageAndChooseCategoryAndType;
+import static amazon.CommonSteps.openHomePageAndChooseDealsOfToday;
 
 public class AmazonTest {
 
@@ -36,7 +37,7 @@ public class AmazonTest {
     @Test
     public void amazonTestOfPercentFunctionality() {
 
-        openHomePageAndChooseCategoryAndType();
+        openHomePageAndChooseCategoryAndType("Smart Home", "Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoad();
         searchResultPage.chooseRandomItem();
@@ -49,7 +50,7 @@ public class AmazonTest {
     @Test
     public void checkPaginationAndHoveringOnBestSeller() {
 
-        openHomePageAndChooseCategoryAndType();
+        openHomePageAndChooseCategoryAndType("Smart Home", "Smart Home Lighting");
         SearchResultPage searchResultPage = new SearchResultPage(CommonActions.getDriver());
         searchResultPage.waitForPageLoad();
         searchResultPage.seeAllProductsInPaga();
@@ -64,26 +65,67 @@ public class AmazonTest {
         softAssert.assertAll();
 
     }
-        @Test
-        public void dealsOfTodayPageFunctionality(){
-        HomePage homePage=new HomePage(CommonActions.getDriver());
-        homePage.goTo();
-        homePage.waitForPageLoad();
-        homePage.dealsOfTodayButtonClick();
-        DealsOfTodayPage dealsOfTodayPage=new DealsOfTodayPage(CommonActions.getDriver());
+
+    @Test
+    public void dealsOfTodayPageFunctionality() {
+        openHomePageAndChooseDealsOfToday();
+        DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
         dealsOfTodayPage.waitForPageLoad();
-        SoftAssert softAssert=new SoftAssert();
-        softAssert.assertEquals("Select All",dealsOfTodayPage.checkBoxFilterAboveText());
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertEquals("Select All", dealsOfTodayPage.checkBoxFilterAboveText());
         dealsOfTodayPage.chooseTwoRandomItemAtOnce();
         dealsOfTodayPage.waitForPageLoad();
-        softAssert.assertEquals("Clear All ",dealsOfTodayPage.checkBoxFilterAboveTextAfterChooseItem());
+        softAssert.assertEquals("Clear All ", dealsOfTodayPage.checkBoxFilterAboveTextAfterChooseItem());
         dealsOfTodayPage.clickOnButtonClearAll();
         dealsOfTodayPage.waitForPageLoad();
-        softAssert.assertFalse(dealsOfTodayPage.itemSelect());
+        softAssert.assertFalse(dealsOfTodayPage.anyOfTheItemsIsSelected());
         softAssert.assertAll();
 
 
-        }
+    }
+
+    @Test
+    public void checkPriceFilterFunctionality() {
+        openHomePageAndChooseDealsOfToday();
+        DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
+        dealsOfTodayPage.chooseCategory("Women's Fashion from Daily Ritual");
+        FashionOfWomenFromRitualPage fashionOfWomenFromRitualPage = new FashionOfWomenFromRitualPage(CommonActions.getDriver());
+        fashionOfWomenFromRitualPage.waitForPageLoad();
+        fashionOfWomenFromRitualPage.chooseFilterPrice("Up to $25");
+        fashionOfWomenFromRitualPage.waitForPageLoad();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(fashionOfWomenFromRitualPage.firstPageOfThePaginationIsEnabled(), "Front page is not enabled");
+        softAssert.assertTrue(fashionOfWomenFromRitualPage.inFirsPageThereIsProductWhichIsLessOrEqualThanToTwentyFive(),
+                "There is a product on the page with a price greater than or equal to the asking price");
+        softAssert.assertAll();
+
+    }
+
+    @Test
+    public void checkShoppingWithPointsReviews() {
+        HomePage homePage = new HomePage(CommonActions.getDriver());
+        homePage.goTo();
+        homePage.waitForPageLoad();
+        homePage.shopWithPointsButtonClick();
+        ShopWithPointsPage shopWithPointsPage = new ShopWithPointsPage(CommonActions.getDriver());
+        shopWithPointsPage.waitForPageLoad();
+        shopWithPointsPage.choosePaymentType("Capital One");
+        PaymentTypePage paymentTypePage = new PaymentTypePage(CommonActions.getDriver());
+        paymentTypePage.goToLookCustomerRatings();
+        CostumerReviewsPage costumerReviewsPage = new CostumerReviewsPage(CommonActions.getDriver());
+        costumerReviewsPage.waitForPageLoad();
+        costumerReviewsPage.selectFromCustomerReviewsByName(("Great"));
+        costumerReviewsPage.waitForPageLoad();
+        String costumerReviewsNameBeforePageRefresh = costumerReviewsPage.getCustomerReviewsName();
+        SoftAssert softAssert = new SoftAssert();
+        softAssert.assertTrue(costumerReviewsPage.countCostumerReviewsInPage() > 2);
+        costumerReviewsPage.refreshPage();
+        String costumerReviewsNameAfterPageRefresh = costumerReviewsPage.getCustomerReviewsName();
+        softAssert.assertEquals(costumerReviewsNameBeforePageRefresh, costumerReviewsNameAfterPageRefresh);
+        softAssert.assertAll();
+
+    }
+
     @AfterMethod
     public void tearDown() {
         if (CommonActions.getDriver() != null) {

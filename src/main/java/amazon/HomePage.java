@@ -35,8 +35,9 @@ public class HomePage extends BasePage {
     @FindBy(xpath = "//div[@id='nav-xshop']/a[contains(text(),'Today')]")
     protected WebElement dealsOfTodayButton;
     @FindBy(xpath = "//div[@class='a-cardui-body']")
-    protected List <WebElement> listOfItemsInPage;
-
+    protected List<WebElement> listOfItemsInPage;
+    @FindBy(xpath = "//a[text()='Shop with Points']")
+    protected WebElement shopWithPointsButton;
 
 
     public void goTo() {
@@ -77,18 +78,24 @@ public class HomePage extends BasePage {
         WebElement chooseCategory = driver.findElement(By.xpath("//a[text()='" + type + "']"));
         chooseCategory.click();
     }
-    public void dealsOfTodayButtonClick(){
+
+    public void dealsOfTodayButtonClick() {
         dealsOfTodayButton.click();
+    }
+
+    public void shopWithPointsButtonClick() {
+        shopWithPointsButton.click();
     }
 
 
     @Override
     public void waitForPageLoad() {
-       if(listOfItemsInPage.size()>0){
-        new WebDriverWait(driver,Duration.ofSeconds(20)).
-                until(ExpectedConditions.visibilityOf(listOfItemsInPage.get(listOfItemsInPage.size()-1)));
-       }
+        if (listOfItemsInPage.size() > 0) {
+            new WebDriverWait(driver, Duration.ofSeconds(20)).
+                    until(ExpectedConditions.visibilityOf(listOfItemsInPage.get(listOfItemsInPage.size() - 1)));
+        }
         super.waitForPageLoad();
 
     }
+
 }
