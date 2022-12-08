@@ -70,7 +70,7 @@ public class DealsOfTodayPage extends BasePage {
 
         WebElement itemClassName = driver.findElement(By.xpath(theNameOfItemClass));
         new WebDriverWait(driver, Duration.ofSeconds(20)).
-                until(ExpectedConditions.numberOfElementsToBeMoreThan(By.className(theNameOfItemClass), 0));
+               until(ExpectedConditions.numberOfElementsToBeMoreThan(By.xpath(theNameOfItemClass), 0));
         new WebDriverWait(driver, Duration.ofSeconds(20)).
                 until(ExpectedConditions.visibilityOfAllElements(itemClassName));
 

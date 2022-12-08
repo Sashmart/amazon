@@ -1,10 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="AmazonAllTests" verbose="1" >
-    <test name="AmazonTest" >
+<suite name="AmazonTests" verbose="1" >
+    <test name="Changes after refresh functionality" >
         <classes>
-            <class name="AmazonTest" />
+            <class name="amazonTests.ChangesAfterRefreshFunctionality" />
+        </classes>
+    </test>
+    <test name="Filter functionality" >
+        <classes>
+            <class name="amazonTests.FilterFunctionalityTest" />
+        </classes>
+    </test>
+    <test name="Pagination Functionality" >
+        <classes>
+            <class name="amazonTests.PaginationFunctionality" />
+        </classes>
+    </test>
+    <test name="Percent functionality" >
+        <classes>
+            <class name="amazonTests.PercentFunctionality" />
+        </classes>
+    </test>
+    <test name="Search result functionality" >
+        <classes>
+            <class name="amazonTests.SearchResultsFunctionality" />
         </classes>
     </test>
 </suite>
