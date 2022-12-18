@@ -2,16 +2,22 @@ package amazonTests;
 
 import amazon.DealsOfTodayPage;
 import amazon.FashionOfWomenFromRitualPage;
-import amazonTests.BaseTestPage;
 import createDriver.CommonActions;
-import org.testng.annotations.Test;
+import createDriver.Config;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import static amazon.CommonSteps.openHomePageAndChooseDealsOfToday;
+@Test(groups ={ "functional","filterFunctionality"})
+public class FilterFunctionalityTest  {
 
-public class FilterFunctionalityTest extends BaseTestPage {
-    @Test
-    public void checkPriceFilterFunctionality()  {
+    @BeforeMethod
+    public void createDriver() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+    }
+
+
+    public void checkPriceFilterFunctionality() {
         openHomePageAndChooseDealsOfToday();
         DealsOfTodayPage dealsOfTodayPage = new DealsOfTodayPage(CommonActions.getDriver());
         dealsOfTodayPage.chooseCategory("Women's Fashion from Daily Ritual");
@@ -42,5 +48,9 @@ public class FilterFunctionalityTest extends BaseTestPage {
 
 
     }
-
-}
+    @AfterMethod
+    public  void tearDown() {
+        if (CommonActions.getDriver() != null) {
+            CommonActions.getDriver().close();
+        }
+    }}

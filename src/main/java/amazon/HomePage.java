@@ -38,6 +38,8 @@ public class HomePage extends BasePage {
     protected List<WebElement> listOfItemsInPage;
     @FindBy(xpath = "//a[text()='Shop with Points']")
     protected WebElement shopWithPointsButton;
+    @FindBy(xpath = "//span[contains(@class,'toaster-button-dismiss')]//span[@class='a-button-inner']")
+    protected WebElement doNotChangeAddressButton;
 
 
     public void goTo() {
@@ -85,6 +87,10 @@ public class HomePage extends BasePage {
 
     public void shopWithPointsButtonClick() {
         shopWithPointsButton.click();
+    }
+    public void doNotChangeAddressButtonClick(){
+        if(dealsOfTodayButton.isDisplayed())
+            doNotChangeAddressButton.click();
     }
 
 

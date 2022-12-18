@@ -2,14 +2,18 @@ package amazonTests;
 
 import amazon.ProductPage;
 import amazon.SearchResultPage;
-import amazonTests.BaseTestPage;
 import createDriver.CommonActions;
+import createDriver.Config;
 import org.testng.Assert;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 
 import static amazon.CommonSteps.openHomePageAndChooseCategoryAndType;
-
-public class PercentFunctionality extends BaseTestPage {
+@Test(groups = {"functional","percentFunctionality"})
+public class PercentFunctionality {
+    @BeforeMethod
+    public void createDriver() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+    }
     @Test
     public void amazonTestOfPercentFunctionality() {
 
@@ -21,6 +25,15 @@ public class PercentFunctionality extends BaseTestPage {
         productPage.waitForPageLoad();
         Assert.assertEquals(100, productPage.sumMarks());
 
+    }
+
+
+
+    @AfterMethod
+    public void tearDown() {
+        if (CommonActions.getDriver() != null) {
+            CommonActions.getDriver().close();
+        }
     }
 
 }

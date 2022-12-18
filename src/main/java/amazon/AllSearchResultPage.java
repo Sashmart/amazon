@@ -17,24 +17,24 @@ public class AllSearchResultPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//span[@class='a-badge-text']")
+    @FindBy(xpath = "//span[contains(@id,'best-seller-supplementary')]")
     protected List<WebElement> textWhenHoverBestSeller;
     @FindBy(xpath = "//span[@class='navFooterBackToTopText']")
     protected WebElement buttonOfBackToTopText;
-    @FindBy(xpath = "//span[contains(@id,'best-seller-supplementary')]")
+    @FindBy(xpath = "//span[@class='a-badge-label-inner a-text-ellipsis']//span[text()='Best Seller']")
     protected List<WebElement> bestSellerProductList;
     @FindBy(xpath = "//a[contains(@class,' s-pagination-button')]")
     protected WebElement paginationButton;
 
+
     public boolean textVisibilityWhenHoverOnBestSellerButton() {
 
         Random random = new Random();
-        int randomNumber = random.nextInt(1, textWhenHoverBestSeller.size()-1);
+        int randomNumber = random.nextInt(1, bestSellerProductList.size() - 1);
         Actions act = new Actions(driver);
-        act.moveToElement(textWhenHoverBestSeller.get(randomNumber)).build().perform();
+        act.moveToElement(bestSellerProductList.get(randomNumber)).build().perform();
 
-
-        return bestSellerProductList.get(randomNumber).isDisplayed();
+        return textWhenHoverBestSeller.get(randomNumber).isDisplayed();
 
     }
 
