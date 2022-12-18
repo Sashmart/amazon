@@ -1,30 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
-<suite name="AmazonTests" verbose="1" >
-    <test name="Changes after refresh functionality" >
+<suite name="AmazonTests2" verbose="2">
+<listeners>
+    <listener class-name="amazonTests.Listeners"></listener>
+</listeners>
+    <test name="AmazonTest">
+
+        <groups>
+            <run>
+                <include name="functional"/>
+            </run>
+        </groups>
         <classes>
-            <class name="amazonTests.ChangesAfterRefreshFunctionality" />
-        </classes>
-    </test>
-    <test name="Filter functionality" >
-        <classes>
-            <class name="amazonTests.FilterFunctionalityTest" />
-        </classes>
-    </test>
-    <test name="Pagination Functionality" >
-        <classes>
-            <class name="amazonTests.PaginationFunctionality" />
-        </classes>
-    </test>
-    <test name="Percent functionality" >
-        <classes>
-            <class name="amazonTests.PercentFunctionality" />
-        </classes>
-    </test>
-    <test name="Search result functionality" >
-        <classes>
-            <class name="amazonTests.SearchResultsFunctionality" />
+            <class name="amazonTests.FilterFunctionalityTest"/>
+            <class name="amazonTests.ChangesAfterRefreshFunctionality"/>
+            <class name="amazonTests.PercentFunctionality"/>
+            <class name="amazonTests.PaginationFunctionality"/>
+            <class name="amazonTests.SearchResultsFunctionality"/>
         </classes>
     </test>
 </suite>

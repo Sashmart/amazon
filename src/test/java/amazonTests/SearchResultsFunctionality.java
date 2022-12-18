@@ -2,10 +2,15 @@ package amazonTests;
 
 import amazon.*;
 import createDriver.CommonActions;
-import org.testng.annotations.Test;
+import createDriver.Config;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
-
-public class SearchResultsFunctionality extends BaseTestPage {
+@Test(groups = {"functional","searchResultFunctionality"})
+public class SearchResultsFunctionality {
+    @BeforeMethod
+    public void createDriver() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+    }
     @Test
     public void checkSearchResultFunctionality() {
         HomePage homePage = new HomePage(CommonActions.getDriver());
@@ -22,6 +27,11 @@ public class SearchResultsFunctionality extends BaseTestPage {
         softAssert.assertEquals(searchResultPage.countOfItemInPage(), searchResultPage.totalNumberOfElementsInPage());
         softAssert.assertEquals(searchResultPage.theValueOfTheNameToSearchFor(), searchResultPage.searchResultName());
         softAssert.assertAll();
+    }@AfterMethod
+    public void tearDown() {
+        if (CommonActions.getDriver() != null) {
+            CommonActions.getDriver().close();
+        }
     }
 
 

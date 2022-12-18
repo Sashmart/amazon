@@ -2,14 +2,19 @@ package amazonTests;
 
 import amazon.AllSearchResultPage;
 import amazon.SearchResultPage;
-import amazonTests.BaseTestPage;
 import createDriver.CommonActions;
-import org.testng.annotations.Test;
+import createDriver.Config;
+import org.testng.annotations.*;
 import org.testng.asserts.SoftAssert;
 
 import static amazon.CommonSteps.openHomePageAndChooseCategoryAndType;
+@Test(groups = {"functional","paginationFunctionality"})
+public class PaginationFunctionality {
+    @BeforeMethod
+    public void createDriver() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+    }
 
-public class PaginationFunctionality extends BaseTestPage {
     @Test
     public void checkPaginationAndHoveringOnBestSeller() {
 
@@ -22,10 +27,15 @@ public class PaginationFunctionality extends BaseTestPage {
         SoftAssert softAssert = new SoftAssert();
         if (allSearchResultPage.theNumberOfTheBestSellingItemOnThePage() > 0) {
             softAssert.assertTrue(allSearchResultPage.textVisibilityWhenHoverOnBestSellerButton());
-
         }
         softAssert.assertTrue(allSearchResultPage.pageWithPagination());
         softAssert.assertAll();
 
+    }@AfterMethod
+    public void tearDown() {
+        if (CommonActions.getDriver() != null) {
+            CommonActions.getDriver().close();
+        }
     }
+
 }

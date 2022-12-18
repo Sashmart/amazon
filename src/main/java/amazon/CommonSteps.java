@@ -8,6 +8,7 @@ public class CommonSteps {
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
         homePage.waitForPageLoad();
+        homePage.doNotChangeAddressButtonClick();
         homePage.selectATopicFromTheEntireSection();
         homePage.chooseCategory(category);
         homePage.chooseType(type);
@@ -19,6 +20,7 @@ public class CommonSteps {
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
         homePage.waitForPageLoad();
+        homePage.doNotChangeAddressButtonClick();
         homePage.dealsOfTodayButtonClick();
     }
 
