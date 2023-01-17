@@ -4,13 +4,20 @@ import amazon.CostumerReviewsPage;
 import amazon.HomePage;
 import amazon.PaymentTypePage;
 import amazon.ShopWithPointsPage;
-import amazonTests.BaseTestPage;
 import createDriver.CommonActions;
-import org.testng.annotations.Test;
+import createDriver.Config;
+import org.testng.annotations.*;
+import org.testng.annotations.Listeners;
 import org.testng.asserts.SoftAssert;
 
-public class ChangesAfterRefreshFunctionality extends BaseTestPage {
-    @Test
+@Test(groups = {"functional","changesAfterRefresh"})
+
+public class ChangesAfterRefreshFunctionality {
+
+    @BeforeMethod
+    public void createDriver() {
+        CommonActions.createDriver(Config.PLATFORM_AND_BROWSER);
+    }
     public void checkShoppingWithPointsReviews() {
         HomePage homePage = new HomePage(CommonActions.getDriver());
         homePage.goTo();
@@ -33,6 +40,10 @@ public class ChangesAfterRefreshFunctionality extends BaseTestPage {
         softAssert.assertEquals(costumerReviewsNameBeforePageRefresh, costumerReviewsNameAfterPageRefresh);
         softAssert.assertAll();
 
+    }@AfterMethod
+    public void tearDown() {
+        if (CommonActions.getDriver() != null) {
+            CommonActions.getDriver().close();
+        }
     }
-
 }
